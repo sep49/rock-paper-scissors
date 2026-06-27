@@ -1,7 +1,7 @@
 /*  
 For now, remove the logic that plays exactly five rounds.
-Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection every time a button is clicked. (you can keep the console.logs for this step)
-Add a div for displaying results and change all of your console.logs into DOM methods.
+Create three buttons, one for each selection. Add an event listener to the buttons that call your playRound function with the correct playerSelection every time a button is clicked. (you can keep the resultsDiv.textContents for this step)
+Add a div for displaying results and change all of your resultsDiv.textContents into DOM methods.
 Display the running score, and announce a winner of the game once one player reaches 5 points.
 */
 
@@ -32,6 +32,10 @@ const resultsDiv = document.createElement("div");
 resultsDiv.id = "results";
 document.body.appendChild(resultsDiv);
 
+const scoreDiv = document.createElement("div");
+scoreDiv.id = "score";
+document.body.appendChild(scoreDiv);
+
 let randomNumber
 function getComputerChoice() {
     randomNumber = Math.random();
@@ -51,34 +55,35 @@ function playRound(humanChoice, computerChoice) {
 
     if (humanChoice == "rock" && computerChoice == "scissors"){
         humanScore++;
-        console.log("You win! Rock beats scissors.")
+        resultsDiv.textContent("You win! Rock beats scissors.")
     } else if (humanChoice == "paper" && computerChoice == "rock" ){
         humanScore++;
-        console.log("You win! Paper beats rock.")
+        resultsDiv.textContent = "You win! Paper beats rock."
     } else if (humanChoice == "scissors" && computerChoice == "paper") {
         humanScore++;
-        console.log("You win! Scissors beats paper.")
+        resultsDiv.textContent = "You win! Scissors beats paper."
     } else if (humanChoice == "rock" && computerChoice == "paper" ){
         computerScore++;
-        console.log("You lose! Paper beats rock.")
+        resultsDiv.textContent = "You lose! Paper beats rock."
     } else if (humanChoice == "paper" && computerChoice == "scissors" ){
         computerScore++;
-        console.log("You lose! Scissors beats paper.")
+        resultsDiv.textContent = "You lose! Scissors beats paper." 
     } else if (humanChoice == "scissors" && computerChoice == "rock") {
         computerScore++;
-        console.log("You lose! Rock beats scissors.")
+        resultsDiv.textContent = "You lose! Rock beats scissors."
     } else if (humanChoice == computerChoice) {
-        console.log("It's a tie!");
+        resultsDiv.textContent = "It's a tie!";
     }
-    resultsDiv.textContent = `Score: You ${humanScore} - Computer ${computerScore}`;
+    scoreDiv.textContent = `Score: You ${humanScore} - Computer ${computerScore}`;
 
+    if (humanScore === 5) {
+    scoreDiv.textContent = "You win the game!";
+    } else if (computerScore === 5) {
+    scoreDiv.textContent = "Computer wins the game!";
+    }   
 }
 
-if (humanScore === 5) {
-    resultsDiv.textContent = "You win the game!";
-} else if (computerScore === 5) {
-    resultsDiv.textContent = "Computer wins the game!";
-}   
+
 
 
 
